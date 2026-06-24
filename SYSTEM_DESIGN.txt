@@ -1,0 +1,482 @@
+ACM VVITU — System Design Document
+Page 1
+ACM VVITU
+Website — High-Level System Design
+Association for Computing Machinery · VVITU Chapter
+Prepared: June 24, 2026  ·  Version 1.0  ·  Confidential — Internal Use
+TABLE OF CONTENTS
+1.    Project Overview
+2.    Technology Stack
+3.    High-Level Architecture
+4.    Module Breakdown
+5.    Database Schema
+6.    Role-Based Access Control
+7.    Key Interaction Flows
+8.    File & Folder Structure
+9.    Deployment & Infrastructure
+10.    Third-Party Integrations
+11.    Development Roadmap
+
+
+ACM VVITU — System Design Document
+Page 2
+1. Project Overview
+ACM VVITU is the official website for the Association for Computing Machinery chapter at VVIT University. It serves as
+the public face of the chapter for students, faculty, and recruiters, while providing a private admin panel for chapter
+officers to manage all site content without touching code.
+Attribute
+Value
+Project type
+Full-stack web application
+Site structure
+Single-page scroll (public) + /admin sub-app
+Primary users
+Students (visitors), Chapter officers (admins/editors)
+Admin team size
+2–5 editors with role-based permissions
+Hosting
+Vercel (auto-deploy from GitHub main branch)
+Domain target
+acm.vvit.edu.in (or equivalent institutional domain)
+Goals
+   Showcase ACM VVITU events, team, and projects to students and recruiters.
+   Provide a zero-code admin panel so officers can update content independently.
+   Deliver a premium first impression with the existing 3D Three.js hero scene.
+   Support event registration with automatic confirmation emails.
+   Be fully responsive across desktop and mobile devices.
+2. Technology Stack
+Layer
+Technology
+Reason
+Frontend
+Next.js 14 (App Router)
+SSR, file-based routing, API routes
+3D Hero
+Three.js r160
+Existing scene.js — refactored as React component
+UI Components
+shadcn/ui + Tailwind
+Accessible, themeable, zero runtime CSS
+Database
+Supabase (PostgreSQL)
+RLS policies, real-time, free tier generous
+Auth
+NextAuth.js v5
+JWT sessions, credentials provider, role claim
+File Storage
+Supabase Storage
+Photos, banners, co-located with DB
+Email
+Resend
+Transactional email — confirmation on registration
+Validation
+Zod
+Shared schemas for API + client forms
+Deployment
+Vercel
+Zero-config Next.js, preview URLs per PR
+Version control
+GitHub
+Auto-deploy on push to main
+
+
+ACM VVITU — System Design Document
+Page 3
+3. High-Level Architecture
+The system follows a three-tier architecture entirely within the Next.js monorepo. There is no separate backend server
+— all API logic lives in Next.js API Routes. Supabase provides the data tier (PostgreSQL + file storage + session
+helpers).
+CLIENT TIER — NEXT.JS 14 APP ROUTER
+Public pages (single-page scroll site):
+Hero (3D)
+Three.js scene
+About
+Mission + vision
+Events
+Timeline + reg
+Team
+Members + roles
+Projects
+Achievements
+Contact
+Links + socials
+Shared component layer:
+Navbar
+Scroll-aware
+Footer
+Links + socials
+UI Kit
+shadcn tokens
+Theme
+Dark by default
+Responsive
+Mobile + desktop
+SERVER TIER — NEXT.JS API ROUTES (/APP/API/...)
+Auth service
+NextAuth + JWT
+Content API
+Events/team/proj
+Forms API
+Register + email
+Upload API
+Images → Storage
+Admin panel
+/admin/* — role-gated CRUD interface for all content
+DATA TIER — SUPABASE
+PostgreSQL
+6 tables + RLS
+Storage bucket
+Photos / banners
+Resend
+Confirmation email
+Vercel
+Deploy + CDN
+
+
+ACM VVITU — System Design Document
+Page 4
+4. Module Breakdown
+HERO MODULE
+   Wraps scene.js + index.html as a React component (SceneCanvas.tsx).
+   Loaded with next/dynamic and ssr:false — Three.js needs the browser window.
+   useScene.ts hook manages renderer lifecycle, resize observer, and cleanup.
+   Intro sequence (loading bar → letter drop → constellation trace) preserved.
+   Mouse parallax and responsive camera fit work identically to the standalone version.
+EVENTS MODULE
+   EventCard component: banner image, title, date, venue, status badge, register button.
+   Timeline view: events sorted by date, grouped by upcoming / past.
+   Registration button links to the embedded custom form (not Google Form).
+   Admin: create / edit / delete events, upload banner image, set registration open/closed.
+TEAM MODULE
+   MemberCard: photo, name, designation, year, LinkedIn + GitHub icons.
+   Filterable by year and is_core (core committee vs general member).
+   Photos stored in Supabase Storage bucket; URLs saved in team_members table.
+   Admin (admin role only): add/remove members, update roles and photos.
+PROJECTS MODULE
+   ProjectCard: cover image, title, tags (tech stack), description, repo link.
+   Filterable by tag.
+   Admin (editor+): add/edit/delete projects, upload cover image.
+ADMIN PANEL
+   Route: /admin/* — protected by middleware.ts + server-side role check.
+   Sidebar nav: Dashboard, Events, Team, Projects, Registrations, Settings, Users (admin only).
+   DataTable component: sortable, searchable, paginated — reused across all entities.
+   EventForm / TeamForm / ProjectForm: Zod-validated, image upload via Supabase Storage.
+   Registrations view: read-only table with CSV export for admins.
+   User management (admin only): invite by email, assign role (admin or editor), revoke access.
+AUTH MODULE
+   NextAuth.js v5 with Credentials provider (email + password).
+   JWT session includes id, email, role claim.
+   middleware.ts: blocks /admin/* if no valid session; redirects to /admin/login.
+   Each API route re-validates role from session before mutating data (defense-in-depth).
+   Supabase Row Level Security adds a third enforcement layer directly at the DB.
+
+
+ACM VVITU — System Design Document
+Page 5
+5. Database Schema
+Six tables in PostgreSQL (Supabase). All tables have Row Level Security enabled.
+users
+id  uuid PK
+email  text UNIQUE
+name  text
+role  text
+avatar_url  text
+created_at  timestamptz
+events
+id  uuid PK
+title  text
+slug  text UNIQUE
+date  timestamptz
+venue  text
+status  text
+banner_url  text
+description  text
+registration_url  text
+created_by  uuid FK
+team_members
+id  uuid PK
+name  text
+role  text
+photo_url  text
+bio  text
+linkedin  text
+github  text
+year  int
+is_core  bool
+created_at  timestamptz
+projects
+id  uuid PK
+title  text
+description  text
+tags  text[]
+repo_url  text
+cover_url  text
+created_at  timestamptz
+registrations
+id  uuid PK
+event_id  uuid FK → events
+name  text
+email  text
+roll_number  text
+branch  text
+created_at  timestamptz
+site_meta
+key  text PK
+value  text
+updated_at  timestamptz
+Key relationships
+   registrations.event_id → events.id (many registrations belong to one event)
+   events.created_by → users.id (audit trail — which officer created the event)
+   site_meta is a simple key-value store: keys like about_text, contact_email, instagram_url
+
+
+ACM VVITU — System Design Document
+Page 6
+6. Role-Based Access Control
+Three principals interact with the system: unauthenticated public visitors, authenticated editors (limited write access),
+and admins (full control). Permissions are enforced at three independent layers: Next.js middleware (route guard), API
+route handlers (role check from session JWT), and Supabase RLS policies (database level).
+Resource
+Public
+Editor
+Admin
+Events
+Read
+Read + Write
+Full CRUD
+Team members
+Read
+Read only
+Full CRUD
+Projects
+Read
+Read + Write
+Full CRUD
+Site meta
+Read
+Read only
+Full CRUD
+Users / roles
+—
+—
+Full CRUD
+Registrations
+Write (submit)
+Read only
+Read + export
+Role assignment flow
+   Admin creates a new user account from the /admin/users panel.
+   User receives an invitation email (via Resend) with a one-time setup link.
+   User sets their password; NextAuth creates a session with the role claim from the DB.
+   Subsequent logins read the role from the users table on each session refresh.
+   Admin can upgrade editor → admin or downgrade admin → editor at any time.
+   Revoking access: set the user record to inactive; middleware rejects their session.
+
+
+ACM VVITU — System Design Document
+Page 7
+7. Key Interaction Flows
+7.1 Admin login and role routing
+Visit /admin
+middleware.ts
+Session?
+Role check
+Dashboard
+   No session → redirect to /admin/login → NextAuth Credentials provider verifies email + password.
+   Valid session, role=admin → full dashboard (all tabs including Users).
+   Valid session, role=editor → limited dashboard (Events + Projects only; Users tab hidden).
+   Invalid role (corrupted JWT) → 403 response; middleware logs the attempt.
+7.2 Event registration (public visitor)
+Click Register
+Fill form
+Zod validate
+POST /api/register
+Write DB + Email
+Success
+   Form fields: full name, roll number, branch, email address.
+   Client-side Zod validation fires before the request is sent — no round-trip for obvious errors.
+   API route re-validates with the same Zod schema (defense-in-depth).
+   On success: row inserted in registrations table, Resend fires confirmation email to the student.
+   On duplicate (same email + event_id): return 409 with friendly message — no double entries.
+7.3 Content update (editor workflow)
+Login /admin
+Open Events
+Edit/Create
+Upload banner
+Save → API
+Published
+   Image upload: file sent to /api/upload → stored in Supabase Storage bucket → public CDN URL returned.
+   Form submit: Zod-validated payload sent to /api/events (POST for create, PATCH for edit).
+   API route checks session role before writing — editors cannot update team or users.
+   Supabase RLS double-checks the claim from the session token.
+   On success: ISR revalidation tag fires so the public page reflects the change within seconds.
+
+
+ACM VVITU — System Design Document
+Page 8
+8. File & Folder Structure
+acm-vvitu/
+■■■ app/
+■ ■■■ (home)/
+■ ■ ■■■ page.tsx ← Single-page scroll: Hero → Contact
+■ ■■■ admin/
+■ ■ ■■■ layout.tsx ← Sidebar + auth guard
+■ ■ ■■■ page.tsx ← Dashboard overview
+■ ■ ■■■ events/page.tsx
+■ ■ ■■■ team/page.tsx
+■ ■ ■■■ projects/page.tsx
+■ ■ ■■■ registrations/page.tsx
+■ ■ ■■■ settings/page.tsx
+■ ■ ■■■ users/page.tsx ← Admin only
+■ ■■■ api/
+■ ■ ■■■ auth/[...nextauth]/route.ts
+■ ■ ■■■ events/route.ts ← GET, POST, PATCH, DELETE
+■ ■ ■■■ team/route.ts
+■ ■ ■■■ projects/route.ts
+■ ■ ■■■ register/route.ts ← Public registration endpoint
+■ ■ ■■■ upload/route.ts ← Image upload → Supabase Storage
+■ ■■■ layout.tsx ← Root layout, ThemeProvider, fonts
+■ ■■■ globals.css
+■ ■■■ error.tsx
+■ ■■■ loading.tsx
+■■■ components/
+■ ■■■ sections/
+■ ■ ■■■ HeroSection.tsx ← Loads SceneCanvas dynamically
+■ ■ ■■■ AboutSection.tsx
+■ ■ ■■■ EventsSection.tsx
+■ ■ ■■■ TeamSection.tsx
+■ ■ ■■■ ProjectsSection.tsx
+■ ■ ■■■ ContactSection.tsx
+■ ■■■ three/
+■ ■ ■■■ SceneCanvas.tsx ← Three.js React wrapper
+■ ■ ■■■ useScene.ts ← Renderer lifecycle hook
+■ ■■■ admin/
+■ ■ ■■■ DataTable.tsx
+■ ■ ■■■ EventForm.tsx
+■ ■ ■■■ TeamForm.tsx
+■ ■ ■■■ ProjectForm.tsx
+■ ■■■ ui/ ← shadcn/ui components
+■ ■■■ Navbar.tsx
+■ ■■■ Footer.tsx
+■■■ lib/
+■ ■■■ supabase.ts ← Supabase client (server + browser)
+■ ■■■ auth.ts ← NextAuth config
+■ ■■■ validations.ts ← Shared Zod schemas
+■ ■■■ utils.ts ← cn(), formatDate(), etc.
+■■■ middleware.ts ← Auth guard + role redirect
+■■■ public/
+■ ■■■ scene.js ← Original Three.js scene (preserved)
+■■■ next.config.ts
+
+
+ACM VVITU — System Design Document
+Page 9
+■■■ tailwind.config.ts
+■■■ .env.local ← SUPABASE_URL, NEXTAUTH_SECRET, RESEND_API_KEY
+
+
+ACM VVITU — System Design Document
+Page 10
+9. Deployment & Infrastructure
+Environment variables required
+Variable
+Where
+Purpose
+NEXT_PUBLIC_SUPABASE_URL
+Vercel env
+Supabase project URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+Vercel env
+Public (read) Supabase key
+SUPABASE_SERVICE_ROLE_KEY
+Vercel env (server only)
+Admin writes, bypasses RLS
+NEXTAUTH_SECRET
+Vercel env
+JWT signing secret
+NEXTAUTH_URL
+Vercel env
+https://acm.vvit.edu.in
+RESEND_API_KEY
+Vercel env
+Transactional email sending
+CI/CD pipeline
+Push to main
+Vercel build
+Lint + type check
+Deploy preview
+Promote prod
+   Every pull request gets a Vercel preview URL — share with the team for review.
+   main branch auto-deploys to production on successful build.
+   Supabase migrations run manually via Supabase CLI before deploying schema changes.
+   Environment variables managed in Vercel dashboard — never committed to git.
+10. Third-Party Integrations
+Service
+Usage
+Free tier
+Supabase
+Database, auth sessions, file storage
+500 MB DB, 1 GB storage, 50k MAU
+Vercel
+Hosting, CDN, serverless functions
+100 GB bandwidth, unlimited deploys
+Resend
+Confirmation emails on registration
+3,000 emails/month
+Three.js
+3D hero scene (CDN, no npm install)
+MIT open source
+shadcn/ui
+Component library (Tailwind-based)
+MIT open source
+NextAuth
+Authentication + session management
+MIT open source
+All third-party services used in this stack offer sufficient free tiers for a college chapter website. Costs scale to near-zero unless traffic
+becomes unexpectedly high.
+
+
+ACM VVITU — System Design Document
+Page 11
+11. Development Roadmap
+PHASE 1 — FOUNDATION (WEEK 1–2)
+   Next.js project scaffolding with App Router, Tailwind, shadcn/ui.
+   Supabase project setup: create all 6 tables, enable RLS, create storage bucket.
+   NextAuth integration: Credentials provider, JWT role claim, session types.
+   middleware.ts route guard for /admin/*.
+   Navbar + Footer components.
+PHASE 2 — HERO INTEGRATION (WEEK 2–3)
+   Refactor scene.js into SceneCanvas.tsx + useScene.ts hook.
+   Dynamic import with ssr:false; loading fallback matches original loading screen.
+   HeroSection.tsx wrapping the canvas with the existing HUD overlay.
+   Responsive camera and mobile scaling verified on real devices.
+PHASE 3 — PUBLIC SECTIONS (WEEK 3–4)
+   AboutSection: static content from site_meta table.
+   EventsSection: fetch from /api/events, EventCard + timeline layout.
+   TeamSection: fetch from /api/team, MemberCard + year/core filter.
+   ProjectsSection: fetch from /api/projects, ProjectCard + tag filter.
+   ContactSection: social links, WhatsApp link, contact email from site_meta.
+PHASE 4 — REGISTRATION FORM (WEEK 4)
+   Registration form component with Zod validation.
+   POST /api/register: write to DB, send confirmation via Resend.
+   Duplicate detection (same email + event).
+   Success/error toast feedback.
+PHASE 5 — ADMIN PANEL (WEEK 5–6)
+   Admin layout with sidebar navigation and role-aware tab visibility.
+   DataTable component (sort, search, paginate) — reused across all entities.
+   EventForm, TeamForm, ProjectForm with image upload to Supabase Storage.
+   Registrations view with CSV export.
+   User management (admin only): invite, assign role, revoke access.
+   site_meta editor: update About text, contact email, social links.
+PHASE 6 — POLISH & LAUNCH (WEEK 7)
+   Mobile responsiveness audit and fixes.
+   Lighthouse performance pass: lazy-load images, ISR revalidation tags.
+   SEO: meta tags, Open Graph image, robots.txt, sitemap.
+   Error boundaries and 404 / 500 pages.
+   Final security review: CSP headers, Supabase RLS audit.
+   DNS → custom domain on Vercel, SSL certificate auto-provision.
+
+
+ACM VVITU — System Design Document
+Page 12
+ End of System Design Document — ACM VVITU Website v1.0

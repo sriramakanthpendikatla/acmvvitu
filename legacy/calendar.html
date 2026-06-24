@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ACM VVITU event calendar — upcoming workshops, hackathons, and sessions." />
+  <title>Calendar — ACM VVITU</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="calendar">
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-mark">A</span> ACM VVITU</a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-nav="home">Home</a></li>
+    <li><a href="about.html" data-nav="about">About</a></li>
+    <li><a href="members.html" data-nav="members">Members</a></li>
+    <li><a href="events.html" data-nav="events">Events</a></li>
+    <li><a href="calendar.html" data-nav="calendar">Calendar</a></li>
+    <li><a href="contact.html" data-nav="contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-outline">Login</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Calendar</h1>
+    <p>All upcoming ACM VVITU events at a glance — never miss a hackathon or workshop.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calendar-layout reveal">
+      <div class="mini-cal">
+        <div class="mini-cal-header">
+          <button class="cal-nav-btn" id="calPrev" aria-label="Previous month">‹</button>
+          <h3 id="calMonthLabel">August 2025</h3>
+          <button class="cal-nav-btn" id="calNext" aria-label="Next month">›</button>
+        </div>
+        <div class="cal-days" id="miniCalDays"></div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;text-align:center">Highlighted dates have events</p>
+      </div>
+
+      <div>
+        <div class="event-list-item">
+          <div class="event-list-date" style="border-color:var(--ice)">
+            <div class="cal-day" style="color:var(--ice)">12</div>
+            <div class="cal-month">Aug</div>
+          </div>
+          <div style="flex:1">
+            <div class="cal-title">Webinar: Cloud 101</div>
+            <div class="cal-meta">Online · 6:00 PM IST</div>
+            <div class="cal-countdown" data-countdown="2025-08-12T18:00:00"></div>
+          </div>
+          <a href="events.html" class="btn btn-outline">Details</a>
+        </div>
+
+        <div class="event-list-item">
+          <div class="event-list-date">
+            <div class="cal-day">24</div>
+            <div class="cal-month">Aug</div>
+          </div>
+          <div style="flex:1">
+            <div class="cal-title">Udgama 2.0 Hackathon</div>
+            <div class="cal-meta">Main Auditorium · All day</div>
+            <div class="cal-countdown" data-countdown="2025-08-24T09:00:00"></div>
+          </div>
+          <a href="events.html" class="btn btn-primary">Register</a>
+        </div>
+
+        <div class="event-list-item">
+          <div class="event-list-date">
+            <div class="cal-day">05</div>
+            <div class="cal-month">Sep</div>
+          </div>
+          <div style="flex:1">
+            <div class="cal-title">Aavega Speed Event</div>
+            <div class="cal-meta">Lab Block · 2:00 PM</div>
+            <div class="cal-countdown" data-countdown="2025-09-05T14:00:00"></div>
+          </div>
+          <a href="events.html" class="btn btn-outline">Details</a>
+        </div>
+
+        <div class="event-list-item">
+          <div class="event-list-date">
+            <div class="cal-day">18</div>
+            <div class="cal-month">Sep</div>
+          </div>
+          <div style="flex:1">
+            <div class="cal-title">Git &amp; Open Source Workshop</div>
+            <div class="cal-meta">Seminar Hall · 10:00 AM</div>
+            <div class="cal-countdown" data-countdown="2025-09-18T10:00:00"></div>
+          </div>
+          <a href="events.html" class="btn btn-outline">Details</a>
+        </div>
+
+        <div class="event-list-item">
+          <div class="event-list-date">
+            <div class="cal-day">12</div>
+            <div class="cal-month">Oct</div>
+          </div>
+          <div style="flex:1">
+            <div class="cal-title">Spardha 2025</div>
+            <div class="cal-meta">Campus-wide · 2 days</div>
+            <div class="cal-countdown" data-countdown="2025-10-12T09:00:00"></div>
+          </div>
+          <a href="events.html" class="btn btn-outline">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo"><span class="nav-logo-mark">A</span> ACM VVITU</div><p>The student chapter of ACM at VVIT University, Guntur, AP.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="events.html">Events</a><a href="calendar.html">Calendar</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:acmvvit@vvit.net">acmvvit@vvit.net</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ACM VVITU Student Chapter</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

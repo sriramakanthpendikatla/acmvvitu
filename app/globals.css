@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 205 95% 8%;
+    --foreground: 210 45% 96%;
+    --card: 210 28% 12%;
+    --card-foreground: 210 35% 94%;
+    --primary: 199 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 205 72% 24%;
+    --secondary-foreground: 210 38% 94%;
+    --muted: 210 25% 40%;
+    --muted-foreground: 210 35% 85%;
+    --accent: 199 100% 55%;
+    --accent-foreground: 0 0% 100%;
+    --border: 206 65% 18%;
+    --radius: 0.85rem;
+  }
+
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-deep text-white antialiased; }
+}
+
+@layer utilities {
+  .glass-nav { @apply border-b border-slate-800 bg-[#031324]/80 backdrop-blur-xl; }
+  .section-pad { @apply py-20 md:py-24; }
+  .section-alt { @apply bg-[#07182f]; }
+  .card-surface { @apply relative overflow-hidden rounded-xl border border-slate-800 shadow-sm; background: linear-gradient(180deg, rgba(0,153,229,0.35) 0%, rgba(0,153,229,0.18) 25%, rgba(0,153,229,0.08) 35%, #071827 100%); border-top: 4px solid rgba(0,153,229,0.5); }
+  .btn-brand { @apply inline-flex items-center justify-center rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark hover:shadow-brand; }
+  .btn-outline-brand { @apply inline-flex items-center justify-center rounded-full border-2 border-brand/40 px-6 py-2.5 text-sm font-semibold text-brand transition hover:bg-brand/10; }
+  .text-link-brand { @apply font-medium text-brand hover:text-brand-light hover:underline; }
+  .page-hero { @apply border-b border-slate-800 px-4 pb-12 pt-28 text-center; background: linear-gradient(180deg, rgba(1,15,30,0.96), rgba(3,25,47,0.98)); color: #eef8ff; }
+}
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  @apply overflow-hidden bg-deep text-white;
+  background: radial-gradient(circle at top, rgba(0, 153, 229, 0.14), transparent 24%), linear-gradient(180deg, #071c34 0%, #040d1a 100%);
+}
+#scene-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.loading-screen { @apply absolute inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-deep transition-opacity duration-700; }
+.loading-screen.hidden { @apply pointer-events-none opacity-0; }
+.loading-bar { @apply relative h-0.5 w-44 overflow-hidden rounded-full bg-white/10; }
+.loading-bar-fill { @apply absolute inset-0 w-0 rounded-full bg-brand transition-all duration-300; }
+.hud { @apply pointer-events-none absolute bottom-[2vh] left-0 right-0 z-10 flex flex-col items-center opacity-0 transition-opacity duration-1000; }
+.hud.show { @apply opacity-100; }
+.scroll-cue { @apply pointer-events-auto flex cursor-pointer flex-col items-center gap-2; }
+.scroll-label { @apply text-[10px] font-semibold uppercase tracking-[0.28em] text-white/50; }
+.scroll-line { @apply h-[22px] w-px animate-scroll-pulse bg-gradient-to-b from-brand/80 to-transparent; }
+.hero-overlay { @apply pointer-events-none absolute inset-0 z-[9] flex flex-col items-center justify-end pb-[18vh]; }
+.hero-overlay.show-ctas .hero-ctas { @apply translate-y-0 opacity-100; }
+.hero-ctas { @apply pointer-events-auto mb-12 flex flex-wrap justify-center gap-5 opacity-0 transition-all duration-1000 delay-300; }
+.hero-brand { @apply pointer-events-none absolute inset-0 z-[8] flex flex-col items-center justify-center px-6 pb-28 text-center md:pb-24; opacity: 0; transform: translateY(16px); transition: opacity 1s ease 0.15s, transform 1s ease 0.15s; }
+.hero-brand.show { opacity: 1; transform: translateY(0); }
+.hero-brand-panel { @apply relative mx-auto flex max-w-[min(92vw,54rem)] flex-col items-center justify-center gap-4 rounded-[2rem] border px-10 py-10 text-center shadow-[0_40px_90px_rgba(0,0,0,0.45)]; border-color: rgba(79, 149, 220, 0.22); background-color: rgba(3, 12, 22, 0.94); backdrop-filter: blur(28px); }
+.hero-loading-title { @apply text-sm font-semibold uppercase tracking-[0.35em] text-brand; }
+.hero-loading-subtitle { @apply text-xs uppercase tracking-[0.35em] text-white/60; }
+.hero-title { @apply inline-flex items-center justify-center gap-3 text-5xl font-black tracking-[-0.03em] text-white drop-shadow-[0_18px_48px_rgba(0,0,0,0.35)] md:text-6xl; white-space: nowrap; }
+.hero-title-accent { @apply text-brand text-5xl font-black md:text-6xl; }
+.hero-tagline { @apply mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/80 md:text-base; }
+.hero-btn-primary { @apply inline-flex items-center justify-center rounded-full bg-brand px-8 py-3.5 text-base font-semibold text-white shadow-lg transition hover:bg-brand-light hover:shadow-[0_10px_30px_rgba(0,153,229,0.4)]; }
+.hero-btn-secondary { @apply inline-flex items-center justify-center rounded-full border-2 border-white/40 bg-white/5 px-8 py-3.5 text-base font-semibold text-white backdrop-blur-md transition hover:border-white/70 hover:bg-white/15 hover:shadow-lg; }
+.flip-card { perspective: 800px; height: 200px; }
+
+/* Dark-brand utility overrides for existing Tailwind color classes */
+.text-navy { color: #eef8ff !important; }
+.text-navy-light { color: #d6eeff !important; }
+.bg-navy { background-color: #031324 !important; }
+.bg-white\/5 { background-color: rgba(255, 255, 255, 0.05) !important; }
+.bg-white\/10 { background-color: rgba(255, 255, 255, 0.10) !important; }
+.border-slate-200 { border-color: rgba(148, 163, 184, 0.18) !important; }
+.hover\:bg-white\/10:hover { background-color: rgba(255, 255, 255, 0.10) !important; }
+.flip-inner { @apply relative h-full w-full transition-transform duration-500; transform-style: preserve-3d; }
+.flip-card:hover .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back { @apply absolute inset-0 flex flex-col items-center justify-center rounded-xl border border-slate-800 bg-[#08182d] p-5 text-center shadow-sm; backface-visibility: hidden; }
+.flip-back { transform: rotateY(180deg); @apply bg-[#07182f]/80; }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 1.25rem 1rem; }
+.faq-item.open .faq-icon { @apply rotate-45 text-brand; }
+.faq-item.open .faq-q-text { @apply text-brand; }
+.ticker-wrap { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.ticker-wrap:hover .ticker-track { animation-play-state: paused; }
+.reveal { @apply translate-y-6 opacity-0 transition-all duration-700; }
+.reveal.visible { @apply translate-y-0 opacity-100; }

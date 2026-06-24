@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ACM VVITU events — hackathons, workshops, tech fests, and guest sessions." />
+  <title>Events — ACM VVITU</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="events">
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo"><span class="nav-logo-mark">A</span> ACM VVITU</a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-nav="home">Home</a></li>
+    <li><a href="about.html" data-nav="about">About</a></li>
+    <li><a href="members.html" data-nav="members">Members</a></li>
+    <li><a href="events.html" data-nav="events">Events</a></li>
+    <li><a href="calendar.html" data-nav="calendar">Calendar</a></li>
+    <li><a href="contact.html" data-nav="contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-outline">Login</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Events</h1>
+    <p>Hackathons, workshops, tech talks, and fests — everything happening at ACM VVITU.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar" data-filter-group data-filter-target=".event-item">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="upcoming">Upcoming</button>
+      <button class="filter-pill" data-filter="past">Past</button>
+      <button class="filter-pill" data-filter="hackathon">Hackathons</button>
+      <button class="filter-pill" data-filter="workshop">Workshops</button>
+    </div>
+
+    <div class="section-header reveal">
+      <span class="section-label">Upcoming</span>
+      <h2 class="section-title">Register now</h2>
+    </div>
+
+    <div class="events-grid reveal">
+      <article class="event-card event-item" data-category="upcoming hackathon">
+        <div class="event-img" style="background:linear-gradient(135deg,#2a1f4e,#0c1322)">U</div>
+        <div class="event-info">
+          <span class="status-badge status-upcoming">Upcoming</span>
+          <div class="event-title" style="margin-top:0.5rem">Udgama 2.0</div>
+          <div class="event-sub">Aug 24, 2025 · Campus · All day</div>
+          <button class="btn btn-primary" style="margin-top:1rem;width:100%" onclick="document.getElementById('regModal').showModal()">Register</button>
+        </div>
+      </article>
+      <article class="event-card event-item" data-category="upcoming workshop">
+        <div class="event-img" style="background:linear-gradient(135deg,#1a3a5c,#0c1322)">C</div>
+        <div class="event-info">
+          <span class="status-badge status-upcoming">Upcoming</span>
+          <div class="event-title" style="margin-top:0.5rem">Webinar: Cloud 101</div>
+          <div class="event-sub">Aug 12, 2025 · Online · 6:00 PM</div>
+          <button class="btn btn-primary" style="margin-top:1rem;width:100%" onclick="document.getElementById('regModal').showModal()">Register</button>
+        </div>
+      </article>
+      <article class="event-card event-item" data-category="upcoming">
+        <div class="event-img" style="background:linear-gradient(135deg,#1f3d3a,#0c1322)">A</div>
+        <div class="event-info">
+          <span class="status-badge status-upcoming">Upcoming</span>
+          <div class="event-title" style="margin-top:0.5rem">Aavega Speed Event</div>
+          <div class="event-sub">Sep 5, 2025 · Lab Block · 2:00 PM</div>
+          <button class="btn btn-primary" style="margin-top:1rem;width:100%" onclick="document.getElementById('regModal').showModal()">Register</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Past events</span>
+      <h2 class="section-title">Our track record</h2>
+    </div>
+    <div class="events-grid reveal">
+      <article class="event-card event-item" data-category="past hackathon">
+        <div class="event-img" style="background:linear-gradient(135deg,#3a2a1a,#0c1322)">S</div>
+        <div class="event-info">
+          <span class="status-badge status-past">Past</span>
+          <div class="event-title" style="margin-top:0.5rem">Spardha 2024</div>
+          <div class="event-sub">Technical fest · 300+ attendees</div>
+        </div>
+      </article>
+      <article class="event-card event-item" data-category="past hackathon">
+        <div class="event-img" style="background:linear-gradient(135deg,#2a2040,#0c1322)">U</div>
+        <div class="event-info">
+          <span class="status-badge status-past">Past</span>
+          <div class="event-title" style="margin-top:0.5rem">Udgama 1.0</div>
+          <div class="event-sub">Hackathon · 200+ participants</div>
+        </div>
+      </article>
+      <article class="event-card event-item" data-category="past workshop">
+        <div class="event-img" style="background:linear-gradient(135deg,#1a3540,#0c1322)">H</div>
+        <div class="event-info">
+          <span class="status-badge status-past">Past</span>
+          <div class="event-title" style="margin-top:0.5rem">Hour of Code 2024</div>
+          <div class="event-sub">Outreach · Campus-wide</div>
+        </div>
+      </article>
+      <article class="event-card event-item" data-category="past">
+        <div class="event-img" style="background:linear-gradient(135deg,#203050,#0c1322)">T</div>
+        <div class="event-info">
+          <span class="status-badge status-past">Past</span>
+          <div class="event-title" style="margin-top:0.5rem">Tech Talk Series</div>
+          <div class="event-sub">Guest sessions · Industry speakers</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">Event highlights</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gal-cell tall"><div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1e3a5f,#0a1424)"></div><div class="gal-overlay"><span>Udgama 1.0</span></div></div>
+      <div class="gal-cell"><div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#2a2040,#0a1424)"></div><div class="gal-overlay"><span>Spardha</span></div></div>
+      <div class="gal-cell"><div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1a3040,#0a1424)"></div><div class="gal-overlay"><span>Workshop</span></div></div>
+      <div class="gal-cell"><div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#203050,#0a1424)"></div><div class="gal-overlay"><span>Tech Talk</span></div></div>
+      <div class="gal-cell"><div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1f2840,#0a1424)"></div><div class="gal-overlay"><span>Hour of Code</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Registration modal -->
+<dialog id="regModal" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;color:var(--metal);max-width:480px;width:90%">
+  <form data-form="register">
+    <h2 style="color:var(--warm-white);margin-bottom:1.5rem">Event registration</h2>
+    <div class="form-group"><label>Full name</label><input type="text" required placeholder="Your name" /></div>
+    <div class="form-row">
+      <div class="form-group"><label>Roll number</label><input type="text" required placeholder="VVIT roll no." /></div>
+      <div class="form-group"><label>Branch</label><select required><option value="">Select</option><option>CSE</option><option>IT</option><option>AI&amp;ML</option><option>ECE</option><option>Other</option></select></div>
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" required placeholder="you@vvit.net" /></div>
+    <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+      <button type="submit" class="btn btn-primary" style="flex:1">Submit</button>
+      <button type="button" class="btn btn-outline" onclick="document.getElementById('regModal').close()">Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo"><span class="nav-logo-mark">A</span> ACM VVITU</div><p>The student chapter of ACM at VVIT University, Guntur, AP.</p></div>
+      <div class="footer-col"><h4>Navigate</h4><a href="index.html">Home</a><a href="events.html">Events</a><a href="calendar.html">Calendar</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:acmvvit@vvit.net">acmvvit@vvit.net</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ACM VVITU Student Chapter</span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

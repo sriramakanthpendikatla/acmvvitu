@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ACM VVITU — Association for Computing Machinery chapter at VVIT University. Events, hackathons, workshops, and a community of 500+ members." />
+  <title>ACM VVITU — Home</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="home">
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mark">A</span>
+    ACM VVITU
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-nav="home">Home</a></li>
+    <li><a href="about.html" data-nav="about">About</a></li>
+    <li><a href="members.html" data-nav="members">Members</a></li>
+    <li><a href="events.html" data-nav="events">Events</a></li>
+    <li><a href="calendar.html" data-nav="calendar">Calendar</a></li>
+    <li><a href="contact.html" data-nav="contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="login.html" class="btn btn-outline">Login</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- S01 Hero — 3D scene -->
+<section class="hero-section" id="hero">
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-mark">ACM VVITU</div>
+    <div class="loading-bar"><div class="loading-bar-fill" id="loadingFill"></div></div>
+  </div>
+
+  <canvas id="scene-canvas"></canvas>
+
+  <div class="nameplate" id="nameplate">
+    <div class="nameplate-text">Association for Computing Machinery · VVITU Chapter</div>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-ctas">
+      <a href="events.html" class="btn btn-primary">Explore events</a>
+      <a href="contact.html" class="btn btn-outline">Join ACM</a>
+    </div>
+  </div>
+
+  <div class="hud" id="hud">
+    <button class="rewatch-btn" id="rewatchBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+      Rewatch intro
+    </button>
+    <div class="scroll-cue">
+      <div class="scroll-label">Scroll</div>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <div class="skip-hint" id="skipHint">click to skip intro</div>
+</section>
+
+<main id="main-content">
+
+<!-- S02 Stats -->
+<section class="section" id="stats">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">By the numbers</span>
+      <h2 class="section-title">Growing every semester</h2>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-num"><span data-count="500" data-suffix="+">0</span></div>
+        <div class="stat-lbl">Members</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span data-count="25" data-suffix="+">0</span></div>
+        <div class="stat-lbl">Events hosted</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">8<span class="suffix"> yrs</span></div>
+        <div class="stat-lbl">Active since 2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S03 Featured Events -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">What's on</span>
+      <h2 class="section-title">Featured events</h2>
+      <p class="section-desc">Hackathons, tech fests, and guest sessions that define our chapter.</p>
+    </div>
+    <div class="events-grid reveal">
+      <a href="events.html" class="event-card">
+        <div class="event-img" style="background:linear-gradient(135deg,#1a3a5c,#0c1322)">S</div>
+        <div class="event-info">
+          <div class="event-title">Spardha</div>
+          <div class="event-sub">Technical fest</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-img" style="background:linear-gradient(135deg,#2a1f4e,#0c1322)">U</div>
+        <div class="event-info">
+          <div class="event-title">Udgama</div>
+          <div class="event-sub">Hackathon</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-img" style="background:linear-gradient(135deg,#1f3d3a,#0c1322)">A</div>
+        <div class="event-info">
+          <div class="event-title">Aavega</div>
+          <div class="event-sub">Speed event</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-img" style="background:linear-gradient(135deg,#3a2a1a,#0c1322)">T</div>
+        <div class="event-info">
+          <div class="event-title">Tech Talk</div>
+          <div class="event-sub">Guest session</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- S04 Ticker -->
+<section class="section">
+  <div class="container reveal">
+    <div class="section-header">
+      <span class="section-label">Achievements</span>
+      <h2 class="section-title">What we've accomplished</h2>
+    </div>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-chip">Udgama 1.0 — 200+ participants</span>
+        <span class="ticker-chip">AUNSF 3.0 — 2nd place</span>
+        <span class="ticker-chip">Hour of Code 2024</span>
+        <span class="ticker-chip">VIVA VVIT 2024</span>
+        <span class="ticker-chip">ACM global affiliation</span>
+        <span class="ticker-chip">500+ members milestone</span>
+        <span class="ticker-chip">Udgama 1.0 — 200+ participants</span>
+        <span class="ticker-chip">AUNSF 3.0 — 2nd place</span>
+        <span class="ticker-chip">Hour of Code 2024</span>
+        <span class="ticker-chip">VIVA VVIT 2024</span>
+        <span class="ticker-chip">ACM global affiliation</span>
+        <span class="ticker-chip">500+ members milestone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S05 Gallery -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">Moments from our events</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <a href="events.html" class="gal-cell tall">
+        <div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1e3a5f 0%,#0a1424 100%)"></div>
+        <div class="gal-overlay"><span>Udgama Hackathon</span></div>
+      </a>
+      <a href="events.html" class="gal-cell">
+        <div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#2a2040,#0a1424)"></div>
+        <div class="gal-overlay"><span>Spardha Fest</span></div>
+      </a>
+      <a href="events.html" class="gal-cell">
+        <div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1a3040,#0a1424)"></div>
+        <div class="gal-overlay"><span>Tech Talk</span></div>
+      </a>
+      <a href="events.html" class="gal-cell">
+        <div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#203050,#0a1424)"></div>
+        <div class="gal-overlay"><span>Workshop</span></div>
+      </a>
+      <a href="events.html" class="gal-cell">
+        <div class="gal-bg" style="width:100%;height:100%;background:linear-gradient(160deg,#1f2840,#0a1424)"></div>
+        <div class="gal-overlay"><span>Team Meet</span></div>
+      </a>
+    </div>
+    <p class="text-center mt-2"><a href="events.html" class="text-link">View full gallery →</a></p>
+  </div>
+</section>
+
+<!-- S06 Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Leadership</span>
+      <h2 class="section-title">Core team — current board</h2>
+      <p class="section-desc">The officers driving ACM VVITU forward this academic year.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">CH</div><div class="team-name">Chairperson</div><div class="team-role">Leading the chapter</div></div><div class="flip-back"><p>Oversees all chapter operations, liaises with faculty advisors, and sets the vision for the semester.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">VC</div><div class="team-name">Vice Chair</div><div class="team-role">Operations lead</div></div><div class="flip-back"><p>Supports the chairperson and manages internal workflows across events and committees.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">SE</div><div class="team-name">Secretary</div><div class="team-role">Records &amp; comms</div></div><div class="flip-back"><p>Maintains meeting minutes, handles official correspondence, and keeps the team aligned.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">TR</div><div class="team-name">Treasurer</div><div class="team-role">Finance</div></div><div class="flip-back"><p>Manages budgets, sponsorship funds, and financial reporting for all chapter activities.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">WC</div><div class="team-name">Webmaster</div><div class="team-role">Digital presence</div></div><div class="flip-back"><p>Builds and maintains this website, registration systems, and all digital infrastructure.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">PR</div><div class="team-name">PR Lead</div><div class="team-role">Outreach</div></div><div class="flip-back"><p>Drives social media, campus outreach, and partnerships with industry and other chapters.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">DS</div><div class="team-name">Design Lead</div><div class="team-role">Visual identity</div></div><div class="flip-back"><p>Creates posters, brand assets, and event collateral that represent ACM VVITU.</p></div></div></div>
+      <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div class="avatar">CO</div><div class="team-name">Content Lead</div><div class="team-role">Blog &amp; media</div></div><div class="flip-back"><p>Writes blog posts, manages the newsletter, and documents chapter stories.</p></div></div></div>
+    </div>
+    <p class="text-center mt-2"><a href="members.html" class="text-link">Meet the full team →</a></p>
+  </div>
+</section>
+
+<!-- S07 Timeline -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Our journey</span>
+      <h2 class="section-title">Chapter timeline</h2>
+    </div>
+    <div class="timeline-grid reveal">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot past"></div><div class="tl-year past">2017</div><div class="tl-text">ACM VVIT chapter founded</div></div>
+        <div class="tl-item"><div class="tl-dot past"></div><div class="tl-year past">2019</div><div class="tl-text">First Udgama hackathon — 120 participants</div></div>
+        <div class="tl-item"><div class="tl-dot past"></div><div class="tl-year past">2021</div><div class="tl-text">ACM global recognition · Hour of Code</div></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot past"></div><div class="tl-year past">2022</div><div class="tl-text">Spardha tech fest launched</div></div>
+        <div class="tl-item"><div class="tl-dot past"></div><div class="tl-year past">2024</div><div class="tl-text">AUNSF 3.0 — 2nd place nationwide</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-text">500+ members milestone · website v2</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S08 Calendar strip -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Upcoming</span>
+      <h2 class="section-title">Events on the horizon</h2>
+    </div>
+    <div class="cal-grid reveal">
+      <div class="cal-card">
+        <div class="cal-date soon"><div class="cal-day">12</div><div class="cal-month">Aug</div></div>
+        <div>
+          <div class="cal-title">Webinar: Cloud 101</div>
+          <div class="cal-meta">Online · 6:00 PM</div>
+          <div class="cal-countdown" data-countdown="2025-08-12T18:00:00"></div>
+        </div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-date"><div class="cal-day">24</div><div class="cal-month">Aug</div></div>
+        <div>
+          <div class="cal-title">Udgama 2.0</div>
+          <div class="cal-meta">Campus · All day</div>
+          <div class="cal-countdown" data-countdown="2025-08-24T09:00:00"></div>
+        </div>
+      </div>
+      <div class="cal-card">
+        <div class="cal-date"><div class="cal-day">05</div><div class="cal-month">Sep</div></div>
+        <div>
+          <div class="cal-title">Aavega Speed Event</div>
+          <div class="cal-meta">Lab Block · 2:00 PM</div>
+          <div class="cal-countdown" data-countdown="2025-09-05T14:00:00"></div>
+        </div>
+      </div>
+    </div>
+    <p class="text-center mt-2"><a href="calendar.html" class="text-link">View full calendar →</a></p>
+  </div>
+</section>
+
+<!-- S09 Blog -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Blog</span>
+      <h2 class="section-title">Latest articles</h2>
+    </div>
+    <div class="blog-grid reveal">
+      <article class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#1a3050,#0c1322)"></div>
+        <div class="blog-body"><span class="blog-tag">AI/ML</span><h3 class="blog-title">Getting started with neural networks</h3><p class="blog-date">Jun 10, 2025 · 5 min read</p></div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#2a1a40,#0c1322)"></div>
+        <div class="blog-body"><span class="blog-tag">Hackathon</span><h3 class="blog-title">Udgama 1.0 — what we built</h3><p class="blog-date">May 28, 2025 · 4 min read</p></div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img" style="background:linear-gradient(135deg,#1a3540,#0c1322)"></div>
+        <div class="blog-body"><span class="blog-tag">Career</span><h3 class="blog-title">How to crack your first tech internship</h3><p class="blog-date">Apr 14, 2025 · 7 min read</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- S10 Testimonials -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Member voices</span>
+      <h2 class="section-title">What our members say</h2>
+    </div>
+    <div class="testi-carousel reveal">
+      <div class="testi-track">
+        <div class="testi-slide">
+          <div class="testi-card"><p class="testi-quote">ACM VVIT opened doors I didn't know existed — from hackathons to real internships.</p><div class="testi-author"><div class="testi-av">AK</div><div class="testi-info"><div class="name">Aditya K.</div><div class="role">B.Tech CSE · 2024</div></div></div></div>
+          <div class="testi-card"><p class="testi-quote">Workshops here are miles ahead of classroom theory. Hands-on and industry-relevant.</p><div class="testi-author"><div class="testi-av">PR</div><div class="testi-info"><div class="name">Priya R.</div><div class="role">B.Tech AI&amp;ML · 2025</div></div></div></div>
+          <div class="testi-card"><p class="testi-quote">Led a team at Udgama 2.0 and got placed at a startup right after. The network is real.</p><div class="testi-author"><div class="testi-av">MS</div><div class="testi-info"><div class="name">Manish S.</div><div class="role">Alumni · SDE at startup</div></div></div></div>
+        </div>
+        <div class="testi-slide">
+          <div class="testi-card"><p class="testi-quote">The mentorship from seniors during Spardha prep helped me land my first open-source contribution.</p><div class="testi-author"><div class="testi-av">RK</div><div class="testi-info"><div class="name">Rohit K.</div><div class="role">B.Tech CSE · 2025</div></div></div></div>
+          <div class="testi-card"><p class="testi-quote">Hour of Code volunteering showed me I love teaching — now I run workshops myself.</p><div class="testi-author"><div class="testi-av">SN</div><div class="testi-info"><div class="name">Sneha N.</div><div class="role">B.Tech IT · 2024</div></div></div></div>
+          <div class="testi-card"><p class="testi-quote">Being part of the core team taught me more about leadership than any course could.</p><div class="testi-author"><div class="testi-av">VJ</div><div class="testi-info"><div class="name">Vijay J.</div><div class="role">Former Secretary · 2023</div></div></div></div>
+        </div>
+      </div>
+      <div class="testi-dots">
+        <button class="testi-dot active" aria-label="Slide 1"></button>
+        <button class="testi-dot" aria-label="Slide 2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 FAQ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q">Who can join ACM VVIT?<span class="icon">+</span></button>
+        <div class="faq-a"><p>Any student enrolled at VVIT University — regardless of branch or year — can become a member. No prior coding experience required.</p></div>
+      </div>
+      <div class="faq-item open">
+        <button class="faq-q">How do I register for events?<span class="icon">+</span></button>
+        <div class="faq-a"><p>Visit the Events page, pick an event, and click Register. You'll receive a confirmation email within 24 hours.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is there a membership fee?<span class="icon">+</span></button>
+        <div class="faq-a"><p>ACM VVIT membership is free for all VVIT students. Some flagship events may have a nominal registration fee to cover logistics.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I join mid-semester?<span class="icon">+</span></button>
+        <div class="faq-a"><p>Absolutely. We welcome new members throughout the year. Reach out via the Contact page or attend any upcoming event.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S12 Alumni -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Alumni network</span>
+      <h2 class="section-title">Where are they now</h2>
+    </div>
+    <div class="alumni-grid reveal">
+      <div class="alum-card"><div class="alum-av">NK</div><div class="alum-name">Nikhil K.</div><div class="alum-role">SDE II</div><div class="alum-co">Amazon</div></div>
+      <div class="alum-card"><div class="alum-av">DP</div><div class="alum-name">Divya P.</div><div class="alum-role">ML Engineer</div><div class="alum-co">Google</div></div>
+      <div class="alum-card"><div class="alum-av">SR</div><div class="alum-name">Sai R.</div><div class="alum-role">Backend Dev</div><div class="alum-co">Zoho</div></div>
+      <div class="alum-card"><div class="alum-av">TV</div><div class="alum-name">Tejal V.</div><div class="alum-role">Data Scientist</div><div class="alum-co">Microsoft</div></div>
+      <div class="alum-card"><div class="alum-av">RB</div><div class="alum-name">Rahul B.</div><div class="alum-role">Founder</div><div class="alum-co">Startup</div></div>
+      <div class="alum-card"><div class="alum-av">KM</div><div class="alum-name">Kavya M.</div><div class="alum-role">DevOps Eng.</div><div class="alum-co">Infosys</div></div>
+      <div class="alum-card"><div class="alum-av">PS</div><div class="alum-name">Pranav S.</div><div class="alum-role">Full-stack Dev</div><div class="alum-co">TCS</div></div>
+      <div class="alum-card"><div class="alum-av">AA</div><div class="alum-name">Ananya A.</div><div class="alum-role">Product Mgr</div><div class="alum-co">Flipkart</div></div>
+    </div>
+    <p class="text-center mt-2"><a href="about.html" class="text-link">View all alumni →</a></p>
+  </div>
+</section>
+
+</main>
+
+<!-- S13 Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span class="nav-logo-mark">A</span> ACM VVITU</div>
+        <p>The student chapter of ACM at Vasireddy Venkatadri Institute of Technology, Guntur, AP.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="Twitter">tw</a>
+          <a href="#" class="social-link" aria-label="GitHub">gh</a>
+          <a href="#" class="social-link" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="members.html">Members</a>
+        <a href="events.html">Events</a>
+        <a href="calendar.html">Calendar</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="index.html#stats">Blog</a>
+        <a href="events.html">Gallery</a>
+        <a href="about.html">Projects</a>
+        <a href="contact.html">Join ACM</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:acmvvit@vvit.net">acmvvit@vvit.net</a>
+        <a href="contact.html">Faculty advisor</a>
+        <a href="contact.html">Report an issue</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ACM VVITU Student Chapter</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
