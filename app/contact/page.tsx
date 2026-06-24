@@ -21,12 +21,26 @@ export default function ContactPage() {
       setMsg("Please fill all fields correctly.");
       return;
     }
-    const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-    if (res.ok) {
+
+    fd.append("access_key", "d44c46c2-c137-46f0-b68a-c2ed8927d5f1");
+    fd.append("reply_to", data.email);
+    fd.append("subject", `Website contact form: ${data.subject}`);
+    fd.append("source", "ACM VVITU website contact form");
+
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: fd,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    const responseData = await res.json();
+    if (res.ok && responseData.success) {
       setMsg("Message sent! We'll get back to you within 48 hours.");
       e.currentTarget.reset();
     } else {
-      setMsg("Something went wrong. Please try again.");
+      setMsg(responseData.message || "Something went wrong. Please try again.");
     }
   }
 
@@ -40,7 +54,7 @@ export default function ContactPage() {
         <div className="mx-auto grid max-w-5xl gap-10 px-4 lg:grid-cols-2">
           <div className="space-y-4">
             {[
-              { t: "Email", v: "acmvvit@vvit.net", href: "mailto:acmvvit@vvit.net" },
+              { t: "Email", v: "acm.vvit@gmail.com", href: "mailto:acm.vvit@gmail.com" },
               { t: "Campus", v: "VVIT, Guntur, AP 522508" },
               { t: "Faculty Advisor", v: "Dr. Faculty Advisor · Dept. of CSE" },
             ].map((c) => (
